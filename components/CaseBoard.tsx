@@ -1,6 +1,6 @@
 'use client'
 import React, { useMemo } from 'react'
-import { ReactFlow, Background, Controls, Node, Edge, ReactFlowProvider, useNodesState } from '@xyflow/react'
+import { ReactFlow, Background, Controls, Node, Edge, ReactFlowProvider, useNodesState, MiniMap } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { CaseNodeData } from '@/types'
 import { EditForm } from './EditForm'
@@ -23,6 +23,12 @@ const initialNodes: Node<CaseNodeData>[] = [
     type: 'default',
     position: { x: 250, y: 300 },
     data: { label: 'Witness B', tags: ['motive'] },
+  },
+  {
+    id: '4',
+    type: 'default',
+    position: { x: 0, y: 200 },
+    data: { label: 'Witness C', tags: [] },
   },
 ]
 
@@ -52,7 +58,7 @@ function generateEdgesFromTags(nodes: Node<CaseNodeData>[]): Edge[] {
             id,
             source,
             target,
-            type: 'default',
+            type: 'straight',
             style: { stroke: '#555', strokeWidth: 1 },
           })
         }
@@ -72,7 +78,7 @@ export const CaseBoard = () => {
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'e' && selectedNodeId) {
+      if (!editOpen && e.key === 'e' && selectedNodeId) {
         e.preventDefault()
         setEditOpen(true)
       }
@@ -80,7 +86,7 @@ export const CaseBoard = () => {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [selectedNodeId])
+  }, [selectedNodeId, editOpen])
 
   return (
     <>
@@ -100,6 +106,7 @@ export const CaseBoard = () => {
           setSelectedNodeId(node?.id ?? null)
         }}
       >
+        <MiniMap nodeStrokeWidth={3} />
         <Background />
         <Controls />
       </ReactFlow>

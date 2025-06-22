@@ -31,11 +31,11 @@ html, body {
   width: 100vw;
 }
 
+.react-flow__edge path {
+  stroke: rgb(143, 0, 12) !important;
+}
 /* .react-flow__handle {
   display: none;
 } */
 
 
-.react-flow__edge path {
-  stroke: rgb(143, 0, 12) !important;
-}
