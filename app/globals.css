@@ -1,11 +1,17 @@
 @import "tailwindcss";
+@plugin "daisyui" {
+  exclude: rootscrollgutter;
+  themes:
+    light,
+    dark --default;
+}
 
 /* :root {
   --background: #ffffff;
   --foreground: #171717;
-}
+} */
 
-@theme inline {
+/* @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -26,16 +32,80 @@ body {
 }
 */
 
+
+
 html, body {
   height: 100vh;
   width: 100vw;
 }
 
 .react-flow__edge path {
+  z-index: 20000;
   stroke: rgb(143, 0, 12) !important;
 }
-/* .react-flow__handle {
-  display: none;
+
+.react-flow__handle-top{
+  top:2px !important;
+  /* background-color: red !important; */
+}
+
+/* .react-flow__handle-top .react-flow__handle{
+  background-color: red;
+  border: 3px solid rgb(161, 0, 0);
 } */
+
+.react-flow__handle-top{
+  background: none !important;
+  
+  background: transparent;
+  width: 10px;
+  height: 10px;
+  position: relative;
+  border: none !important;
+  z-index: 10000;
+}
+
+/* Pin head */
+.react-flow__handle-top::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle at center, #ff3c00, #cc0000);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  
+  box-shadow: inset 1px -1px 0px rgba(82, 0, 0, 0.4),
+              inset 1px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Pin needle/shadow */
+.react-flow__handle-top::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background: black;
+  
+  transform: translateX(-66%);
+  border-radius: 50%;
+  opacity: 0.4;
+  /* box-shadow: 20px 20px 6px rgba(0, 0, 0, 0.5); */
+}
+
+
+.react-flow__handle-bottom{
+  top:2px !important;
+  visibility: hidden;
+}
+
+.react-flow__handle {
+
+  /* visibility: hidden; */
+}
 
 
